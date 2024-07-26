@@ -13,6 +13,7 @@ mod-dlm-fastapi-server.png
 openapi.yaml
 pyproject.toml
 requirements.txt
+requirements.txt
 setup.cfg
 src/mod_dlm_server/apis/__init__.py
 src/mod_dlm_server/apis/default_api.py

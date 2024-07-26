@@ -24,7 +24,7 @@ You can always find the most up-to-date API documentation here: [mod-dlm API Doc
 The server is generated automatically using the  [OpenAPI Generator](https://openapi-generator.tech).
 
 - API version: 1.0.7
-- Build date: 2024-07-26T14:15:22.079589908Z[Etc/UTC]
+- Build date: 2024-07-26T14:53:27.825342907Z[Etc/UTC]
 - Generator version: 7.8.0-SNAPSHOT
 - Build package: org.openapitools.codegen.languages.PythonFastAPIServerCodegen
 
@@ -37,8 +37,8 @@ Python >= 3.7
 To run the server, please execute the following from the root directory:
 
 ```bash
-pip3 install -r requirements.txt
-PYTHONPATH=src uvicorn openapi_server.main:app --host 0.0.0.0 --port 8080
+pip install -r requirements.txt
+PYTHONPATH=src uvicorn mod_dlm_server.main:app --host 0.0.0.0 --port 8080
 ```
 
 and open your browser at `http://localhost:8080/docs/` to see the docs.
