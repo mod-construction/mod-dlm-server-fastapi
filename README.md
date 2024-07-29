@@ -9,9 +9,8 @@
 
 # mod-dlm-fastapi-server
 
-[![build status](https://github.com/mod-construction/mod-dlm/actions/workflows/apidoc.yml/badge.svg)](https://github.com/mod-construction/mod-dlm/actions/workflows/apidoc.yml)
 [![build status](https://github.com/mod-construction/mod-dlm/actions/workflows/publish.yml/badge.svg)](https://github.com/mod-construction/mod-dlm/actions/workflows/publish.yml)
-[![npm version](https://img.shields.io/npm/v/@mod-construction/mod-dlm/latest)](https://www.npmjs.com/package/@mod-construction/mod-dlm)
+[![PyPI - Version](https://img.shields.io/pypi/v/mod-dlm-server)](https://pypi.org/project/mod-dlm-server/)
 [![License](https://img.shields.io/github/license/mod-construction/mod-dlm)](https://opensource.org/licenses/MIT)
 </div>
 
@@ -24,7 +23,7 @@ You can always find the most up-to-date API documentation here: [mod-dlm API Doc
 The server is generated automatically using the  [OpenAPI Generator](https://openapi-generator.tech).
 
 - API version: 1.0.7
-- Build date: 2024-07-29T09:41:05.228014866Z[Etc/UTC]
+- Build date: 2024-07-29T09:54:52.280606897Z[Etc/UTC]
 - Generator version: 7.8.0-SNAPSHOT
 - Build package: org.openapitools.codegen.languages.PythonFastAPIServerCodegen
 
