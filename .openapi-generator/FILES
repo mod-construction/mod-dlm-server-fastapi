@@ -1,4 +1,5 @@
 .flake8
+.github/workflows/publish-pypi.yml
 .gitignore
 .openapi-generator-ignore
 CODE_OF_CONDUCT.md
