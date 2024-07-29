@@ -15,6 +15,7 @@ pyproject.toml
 requirements.txt
 requirements.txt
 setup.cfg
+setup.cfg
 src/mod_dlm_server/apis/__init__.py
 src/mod_dlm_server/apis/default_api.py
 src/mod_dlm_server/apis/default_api_base.py
