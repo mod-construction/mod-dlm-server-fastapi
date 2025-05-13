@@ -2,6 +2,9 @@
 
 from typing import ClassVar, Dict, List, Tuple  # noqa: F401
 
+from pydantic import Field, StrictStr
+from typing import Any, Optional
+from typing_extensions import Annotated
 from mod_dlm_server.models.element_create import ElementCreate
 from mod_dlm_server.models.prefab_element import PrefabElement
 from mod_dlm_server.security_api import get_token_apiKey, get_token_bearer
@@ -14,7 +17,7 @@ class BaseDefaultApi:
         BaseDefaultApi.subclasses = BaseDefaultApi.subclasses + (cls,)
     async def create_element(
         self,
-        element_create: ElementCreate,
+        element_create: Annotated[Optional[ElementCreate], Field(description="The element to create.")],
     ) -> PrefabElement:
         """Creates a new element in the database."""
         ...
@@ -22,7 +25,7 @@ class BaseDefaultApi:
 
     async def get_element(
         self,
-        id: str,
+        id: Annotated[StrictStr, Field(description="A unique identifier for an element")],
     ) -> PrefabElement:
         """Gets an element from the database."""
         ...

@@ -9,7 +9,7 @@
 
 # mod-dlm-fastapi-server
 
-[![build status](https://github.com/mod-construction/mod-dlm/actions/workflows/publish.yml/badge.svg)](https://github.com/mod-construction/mod-dlm/actions/workflows/publish.yml)
+[![build status](https://github.com/mod-construction/mod-dlm-server-fastapi/actions/workflows/publish-pypi.yml/badge.svg)](https://github.com/mod-construction/mod-dlm-server-fastapi/actions/workflows/publish-pypi.yml)
 [![PyPI - Version](https://img.shields.io/pypi/v/mod-dlm-server)](https://pypi.org/project/mod-dlm-server/)
 [![License](https://img.shields.io/github/license/mod-construction/mod-dlm)](https://opensource.org/licenses/MIT)
 </div>
@@ -22,9 +22,9 @@ You can always find the most up-to-date API documentation here: [mod-dlm API Doc
 
 The server is generated automatically using the  [OpenAPI Generator](https://openapi-generator.tech).
 
-- API version: 1.0.7
-- Build date: 2024-07-29T10:27:23.108497008Z[Etc/UTC]
-- Generator version: 7.8.0-SNAPSHOT
+- API version: 1.0.8
+- Build date: 2025-05-13T09:20:26.386305337Z[Etc/UTC]
+- Generator version: 7.14.0-SNAPSHOT
 - Build package: org.openapitools.codegen.languages.PythonFastAPIServerCodegen
 
 ## Requirements.

@@ -20,6 +20,7 @@ setup.cfg
 src/mod_dlm_server/apis/__init__.py
 src/mod_dlm_server/apis/default_api.py
 src/mod_dlm_server/apis/default_api_base.py
+src/mod_dlm_server/impl/__init__.py
 src/mod_dlm_server/main.py
 src/mod_dlm_server/models/__init__.py
 src/mod_dlm_server/models/element_create.py
@@ -40,7 +41,7 @@ src/mod_dlm_server/models/prefab_element_performance_acoustic_properties.py
 src/mod_dlm_server/models/prefab_element_structural_properties.py
 src/mod_dlm_server/models/prefab_element_structural_properties_load_bearing_capacity.py
 src/mod_dlm_server/models/prefab_element_sustainability.py
+src/mod_dlm_server/models/product_category.py
 src/mod_dlm_server/security_api.py
-src/openapi_server/impl/__init__.py
 tests/conftest.py
 tests/test_default_api.py

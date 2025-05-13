@@ -12,7 +12,7 @@ info:
     name: MIT
     url: https://github.com/mod-construction/mod-dlm/blob/main/LICENSE
   title: mod-dlm API
-  version: 1.0.7
+  version: 1.0.8
   x-logo:
     url: mod-dlm-logo.png
     backgroundColor: '#FFFFFF'
@@ -96,7 +96,6 @@ components:
           installationTime: installationTime
           connectionType: Bolt-on
           compatibility: Steel Frame
-        buildingSystem: Wall
         dimensional:
           width:
             min: 5.962133916683182
@@ -134,7 +133,9 @@ components:
           classification: A+
           energyEfficiency: R-1
           VOCEmissions: None
-        productCategory: Boarding
+        productCategory:
+          category: Solid Wall Panels
+          buildingSystem: Wall
         aestheticAndCustomizationOptions:
           colorOptions:
           - colorOptions
@@ -175,45 +176,8 @@ components:
             type: string
           title: images
           type: array
-        buildingSystem:
-          enum:
-          - Wall
-          - Balcony
-          - Pod
-          - Frame
-          - Facade
-          - Floors
-          - Modules
-          - Plants
-          - Roofs
-          - Stairs
-          title: buildingSystem
-          type: string
         productCategory:
-          enum:
-          - Boarding
-          - Solid Wall Panels
-          - Closed Wall Panels
-          - Twinwall
-          - Open Wall Panels
-          - Structural Insulated Panels (SIPs)
-          - Insulated Concrete Panels
-          - Prefabricated Balcony
-          - Pod
-          - Whole Building System
-          - Structural Frame
-          - Facade System
-          - Hollowcore Floor
-          - Concrete Lattice Floor
-          - Floor Cassettes
-          - Solid Floor Panels
-          - Volumetric module
-          - Prefabricated Plant
-          - Roof Panel
-          - Roof Truss
-          - Prefabricated Stairs
-          title: productCategory
-          type: string
+          $ref: '#/components/schemas/ProductCategory'
         material:
           $ref: '#/components/schemas/PrefabElement_material'
         dimensional:
@@ -236,7 +200,6 @@ components:
           $ref: '#/components/schemas/PrefabElement_economicFactors'
       required:
       - boundingBox
-      - buildingSystem
       - description
       - dimensional
       - id
@@ -245,6 +208,53 @@ components:
       - name
       - productCategory
       title: PrefabElement
+    ProductCategory:
+      description: Product Category
+      example:
+        category: Solid Wall Panels
+        buildingSystem: Wall
+      properties:
+        category:
+          enum:
+          - Boarding
+          - Solid Wall Panels
+          - Closed Wall Panels
+          - Twinwall
+          - Open Wall Panels
+          - Structural Insulated Panels (SIPs)
+          - Insulated Concrete Panels
+          - Prefabricated Balcony
+          - Pod
+          - Whole Building System
+          - Structural Frame
+          - Facade System
+          - Hollowcore Floor
+          - Concrete Lattice Floor
+          - Floor Cassettes
+          - Solid Floor Panels
+          - Volumetric module
+          - Prefabricated Plant
+          - Roof Panel
+          - Roof Truss
+          - Prefabricated Stairs
+          type: string
+        buildingSystem:
+          enum:
+          - Wall
+          - Balcony
+          - Pod
+          - Frame
+          - Facade
+          - Floors
+          - Modules
+          - Plants
+          - Roofs
+          - Stairs
+          type: string
+      required:
+      - buildingSystem
+      - category
+      title: ProductCategory
     ElementCreate:
       description: An element to create.
       example:
@@ -259,7 +269,6 @@ components:
           installationTime: installationTime
           connectionType: Bolt-on
           compatibility: Steel Frame
-        buildingSystem: Wall
         dimensional:
           width:
             min: 5.962133916683182
@@ -297,7 +306,9 @@ components:
           classification: A+
           energyEfficiency: R-1
           VOCEmissions: None
-        productCategory: Boarding
+        productCategory:
+          category: Solid Wall Panels
+          buildingSystem: Wall
         aestheticAndCustomizationOptions:
           colorOptions:
           - colorOptions
@@ -331,45 +342,8 @@ components:
             type: string
           title: images
           type: array
-        buildingSystem:
-          enum:
-          - Wall
-          - Balcony
-          - Pod
-          - Frame
-          - Facade
-          - Floors
-          - Modules
-          - Plants
-          - Roofs
-          - Stairs
-          title: buildingSystem
-          type: string
         productCategory:
-          enum:
-          - Boarding
-          - Solid Wall Panels
-          - Closed Wall Panels
-          - Twinwall
-          - Open Wall Panels
-          - Structural Insulated Panels (SIPs)
-          - Insulated Concrete Panels
-          - Prefabricated Balcony
-          - Pod
-          - Whole Building System
-          - Structural Frame
-          - Facade System
-          - Hollowcore Floor
-          - Concrete Lattice Floor
-          - Floor Cassettes
-          - Solid Floor Panels
-          - Volumetric module
-          - Prefabricated Plant
-          - Roof Panel
-          - Roof Truss
-          - Prefabricated Stairs
-          title: productCategory
-          type: string
+          $ref: '#/components/schemas/ProductCategory'
         material:
           $ref: '#/components/schemas/PrefabElement_material'
         dimensional:
@@ -392,7 +366,6 @@ components:
           $ref: '#/components/schemas/PrefabElement_economicFactors'
       required:
       - boundingBox
-      - buildingSystem
       - description
       - dimensional
       - images

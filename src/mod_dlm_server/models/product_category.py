@@ -22,39 +22,32 @@ import json
 
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PrefabElementInstallationAndConnectivity(BaseModel):
+class ProductCategory(BaseModel):
     """
-    PrefabElementInstallationAndConnectivity
+    Product Category
     """ # noqa: E501
-    connection_type: Optional[StrictStr] = Field(default=None, alias="connectionType")
-    installation_time: Optional[StrictStr] = Field(default=None, alias="installationTime")
-    compatibility: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["connectionType", "installationTime", "compatibility"]
+    category: StrictStr
+    building_system: StrictStr = Field(alias="buildingSystem")
+    __properties: ClassVar[List[str]] = ["category", "buildingSystem"]
 
-    @field_validator('connection_type')
-    def connection_type_validate_enum(cls, value):
+    @field_validator('category')
+    def category_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in ('Bolt-on', 'Welded', 'Clip-on', 'Adhesive', 'Mortar',):
-            raise ValueError("must be one of enum values ('Bolt-on', 'Welded', 'Clip-on', 'Adhesive', 'Mortar')")
+        if value not in ('Boarding', 'Solid Wall Panels', 'Closed Wall Panels', 'Twinwall', 'Open Wall Panels', 'Structural Insulated Panels (SIPs)', 'Insulated Concrete Panels', 'Prefabricated Balcony', 'Pod', 'Whole Building System', 'Structural Frame', 'Facade System', 'Hollowcore Floor', 'Concrete Lattice Floor', 'Floor Cassettes', 'Solid Floor Panels', 'Volumetric module', 'Prefabricated Plant', 'Roof Panel', 'Roof Truss', 'Prefabricated Stairs',):
+            raise ValueError("must be one of enum values ('Boarding', 'Solid Wall Panels', 'Closed Wall Panels', 'Twinwall', 'Open Wall Panels', 'Structural Insulated Panels (SIPs)', 'Insulated Concrete Panels', 'Prefabricated Balcony', 'Pod', 'Whole Building System', 'Structural Frame', 'Facade System', 'Hollowcore Floor', 'Concrete Lattice Floor', 'Floor Cassettes', 'Solid Floor Panels', 'Volumetric module', 'Prefabricated Plant', 'Roof Panel', 'Roof Truss', 'Prefabricated Stairs')")
         return value
 
-    @field_validator('compatibility')
-    def compatibility_validate_enum(cls, value):
+    @field_validator('building_system')
+    def building_system_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in ('Steel Frame', 'Wood Frame', 'Concrete Structure', 'Brickwork', 'Modular Systems', 'Glass Facades', 'Composite Materials',):
-            raise ValueError("must be one of enum values ('Steel Frame', 'Wood Frame', 'Concrete Structure', 'Brickwork', 'Modular Systems', 'Glass Facades', 'Composite Materials')")
+        if value not in ('Wall', 'Balcony', 'Pod', 'Frame', 'Facade', 'Floors', 'Modules', 'Plants', 'Roofs', 'Stairs',):
+            raise ValueError("must be one of enum values ('Wall', 'Balcony', 'Pod', 'Frame', 'Facade', 'Floors', 'Modules', 'Plants', 'Roofs', 'Stairs')")
         return value
 
     model_config = {
@@ -75,7 +68,7 @@ class PrefabElementInstallationAndConnectivity(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PrefabElementInstallationAndConnectivity from a JSON string"""
+        """Create an instance of ProductCategory from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -98,7 +91,7 @@ class PrefabElementInstallationAndConnectivity(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PrefabElementInstallationAndConnectivity from a dict"""
+        """Create an instance of ProductCategory from a dict"""
         if obj is None:
             return None
 
@@ -106,9 +99,8 @@ class PrefabElementInstallationAndConnectivity(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "connectionType": obj.get("connectionType"),
-            "installationTime": obj.get("installationTime"),
-            "compatibility": obj.get("compatibility")
+            "category": obj.get("category"),
+            "buildingSystem": obj.get("buildingSystem")
         })
         return _obj
 

@@ -5,7 +5,7 @@ import importlib
 import pkgutil
 
 from mod_dlm_server.apis.default_api_base import BaseDefaultApi
-import openapi_server.impl
+import mod_dlm_server.impl
 
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -23,13 +23,16 @@ from fastapi import (  # noqa: F401
 )
 
 from mod_dlm_server.models.extra_models import TokenModel  # noqa: F401
+from pydantic import Field, StrictStr
+from typing import Any, Optional
+from typing_extensions import Annotated
 from mod_dlm_server.models.element_create import ElementCreate
 from mod_dlm_server.models.prefab_element import PrefabElement
 from mod_dlm_server.security_api import get_token_apiKey, get_token_bearer
 
 router = APIRouter()
 
-ns_pkg = openapi_server.impl
+ns_pkg = mod_dlm_server.impl
 for _, name, _ in pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."):
     importlib.import_module(name)
 
@@ -46,7 +49,7 @@ for _, name, _ in pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."):
     response_model_by_alias=True,
 )
 async def create_element(
-    element_create: ElementCreate = Body(None, description="The element to create."),
+    element_create: Annotated[Optional[ElementCreate], Field(description="The element to create.")] = Body(None, description="The element to create."),
     token_apiKey: TokenModel = Security(
         get_token_apiKey
     ),
@@ -73,7 +76,7 @@ async def create_element(
     response_model_by_alias=True,
 )
 async def get_element(
-    id: str = Path(..., description="A unique identifier for an element"),
+    id: Annotated[StrictStr, Field(description="A unique identifier for an element")] = Path(..., description="A unique identifier for an element"),
     token_apiKey: TokenModel = Security(
         get_token_apiKey
     ),
