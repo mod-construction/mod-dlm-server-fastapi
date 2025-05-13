@@ -12,7 +12,7 @@ info:
     name: MIT
     url: https://github.com/mod-construction/mod-dlm/blob/main/LICENSE
   title: mod-dlm API
-  version: 1.0.8
+  version: 1.0.10
   x-logo:
     url: mod-dlm-logo.png
     backgroundColor: '#FFFFFF'
