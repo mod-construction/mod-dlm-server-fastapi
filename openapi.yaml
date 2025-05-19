@@ -12,7 +12,7 @@ info:
     name: MIT
     url: https://github.com/mod-construction/mod-dlm/blob/main/LICENSE
   title: mod-dlm API
-  version: 1.0.10
+  version: 1.0.11
   x-logo:
     url: mod-dlm-logo.png
     backgroundColor: '#FFFFFF'
@@ -164,9 +164,11 @@ components:
           title: id
           type: string
         name:
+          minLength: 1
           title: name
           type: string
         description:
+          minLength: 1
           title: description
           type: string
         boundingBox:
@@ -174,6 +176,7 @@ components:
         images:
           items:
             type: string
+          minItems: 1
           title: images
           type: array
         productCategory:
@@ -330,9 +333,11 @@ components:
           costPerUnit: 9.301444243932576
       properties:
         name:
+          minLength: 1
           title: name
           type: string
         description:
+          minLength: 1
           title: description
           type: string
         boundingBox:
@@ -340,6 +345,7 @@ components:
         images:
           items:
             type: string
+          minItems: 1
           title: images
           type: array
         productCategory:
