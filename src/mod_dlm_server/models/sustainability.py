@@ -21,21 +21,24 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
-from typing import Any, ClassVar, Dict, List, Union
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List
+from mod_dlm_server.models.sustainability_circularity import SustainabilityCircularity
+from mod_dlm_server.models.sustainability_environmental_impact import SustainabilityEnvironmentalImpact
+from mod_dlm_server.models.sustainability_origin import SustainabilityOrigin
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PrefabElementBoundingBox(BaseModel):
+class Sustainability(BaseModel):
     """
-    3D bounding dimensions of the prefab element, defining its spatial envelope.
+    Sustainability attributes of the element.
     """ # noqa: E501
-    width: Union[StrictFloat, StrictInt]
-    height: Union[StrictFloat, StrictInt]
-    depth: Union[StrictFloat, StrictInt]
-    __properties: ClassVar[List[str]] = ["width", "height", "depth"]
+    environmental_impact: SustainabilityEnvironmentalImpact = Field(alias="environmentalImpact")
+    circularity: SustainabilityCircularity
+    origin: SustainabilityOrigin
+    __properties: ClassVar[List[str]] = ["environmentalImpact", "circularity", "origin"]
 
     model_config = {
         "populate_by_name": True,
@@ -55,7 +58,7 @@ class PrefabElementBoundingBox(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PrefabElementBoundingBox from a JSON string"""
+        """Create an instance of Sustainability from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -74,11 +77,20 @@ class PrefabElementBoundingBox(BaseModel):
             },
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of environmental_impact
+        if self.environmental_impact:
+            _dict['environmentalImpact'] = self.environmental_impact.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of circularity
+        if self.circularity:
+            _dict['circularity'] = self.circularity.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of origin
+        if self.origin:
+            _dict['origin'] = self.origin.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PrefabElementBoundingBox from a dict"""
+        """Create an instance of Sustainability from a dict"""
         if obj is None:
             return None
 
@@ -86,9 +98,9 @@ class PrefabElementBoundingBox(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "width": obj.get("width"),
-            "height": obj.get("height"),
-            "depth": obj.get("depth")
+            "environmentalImpact": SustainabilityEnvironmentalImpact.from_dict(obj.get("environmentalImpact")) if obj.get("environmentalImpact") is not None else None,
+            "circularity": SustainabilityCircularity.from_dict(obj.get("circularity")) if obj.get("circularity") is not None else None,
+            "origin": SustainabilityOrigin.from_dict(obj.get("origin")) if obj.get("origin") is not None else None
         })
         return _obj
 

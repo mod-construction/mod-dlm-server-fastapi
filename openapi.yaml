@@ -12,7 +12,7 @@ info:
     name: MIT
     url: https://github.com/mod-construction/mod-dlm/blob/main/LICENSE
   title: mod-dlm API
-  version: 1.0.12
+  version: 1.0.13
   x-logo:
     url: mod-dlm-logo.png
     backgroundColor: "#FFFFFF"
@@ -126,17 +126,7 @@ components:
             regulatoryApprovals:
             - regulatoryApprovals
             - regulatoryApprovals
-        sustainability:
-          countryOfManufacturing: countryOfManufacturing
-          recyclability: 41.45608029883936
-          classification: A
-          energyEfficiency: LEED Gold
-          VOCEmissions: Low (<0.3 mg/m³)
-        reuseAndCircularity:
-          circularityCertification: C2C_gold
-          reusePotential: recyclable
-          refurbishmentScope: partial
-          disassemblyRating: "3"
+        sustainability: ""
         productCategory:
           buildingSystem: Facade
           category: Structural Insulated Panels (SIPs)
@@ -217,9 +207,11 @@ components:
         performance:
           $ref: "#/components/schemas/PrefabElement_performance"
         sustainability:
-          $ref: "#/components/schemas/PrefabElement_sustainability"
-        reuseAndCircularity:
-          $ref: "#/components/schemas/PrefabElement_reuseAndCircularity"
+          allOf:
+          - $ref: "#/components/schemas/Sustainability"
+          description: Environmental and sustainability performance such as EPDs or
+            recyclability.
+          title: sustainability
         documentationAndCompliance:
           $ref: "#/components/schemas/PrefabElement_documentationAndCompliance"
         installationAndConnectivity:
@@ -281,6 +273,20 @@ components:
       - productCategory
       - versionMetadata
       title: PrefabElement
+    Sustainability:
+      description: Sustainability attributes of the element.
+      properties:
+        environmentalImpact:
+          $ref: "#/components/schemas/Sustainability_environmentalImpact"
+        circularity:
+          $ref: "#/components/schemas/Sustainability_circularity"
+        origin:
+          $ref: "#/components/schemas/Sustainability_origin"
+      required:
+      - circularity
+      - environmentalImpact
+      - origin
+      title: Sustainability
     InstallationAndConnectivity:
       description: Describes how the prefab element is installed and what structural
         systems it is compatible with.
@@ -370,17 +376,7 @@ components:
             regulatoryApprovals:
             - regulatoryApprovals
             - regulatoryApprovals
-        sustainability:
-          countryOfManufacturing: countryOfManufacturing
-          recyclability: 41.45608029883936
-          classification: A
-          energyEfficiency: LEED Gold
-          VOCEmissions: Low (<0.3 mg/m³)
-        reuseAndCircularity:
-          circularityCertification: C2C_gold
-          reusePotential: recyclable
-          refurbishmentScope: partial
-          disassemblyRating: "3"
+        sustainability: ""
         productCategory:
           buildingSystem: Facade
           category: Structural Insulated Panels (SIPs)
@@ -454,9 +450,11 @@ components:
         performance:
           $ref: "#/components/schemas/PrefabElement_performance"
         sustainability:
-          $ref: "#/components/schemas/PrefabElement_sustainability"
-        reuseAndCircularity:
-          $ref: "#/components/schemas/PrefabElement_reuseAndCircularity"
+          allOf:
+          - $ref: "#/components/schemas/Sustainability"
+          description: Environmental and sustainability performance such as EPDs or
+            recyclability.
+          title: sustainability
         documentationAndCompliance:
           $ref: "#/components/schemas/PrefabElement_documentationAndCompliance"
         installationAndConnectivity:
@@ -901,136 +899,6 @@ components:
       - thermalTransmittance
       - vaporPermeability
       title: PrefabElement_performance
-    PrefabElement_sustainability:
-      description: Environmental and sustainability performance such as EPDs or recyclability.
-      example:
-        countryOfManufacturing: countryOfManufacturing
-        recyclability: 41.45608029883936
-        classification: A
-        energyEfficiency: LEED Gold
-        VOCEmissions: Low (<0.3 mg/m³)
-      properties:
-        countryOfManufacturing:
-          description: Country where the element is manufactured
-          title: countryOfManufacturing
-          type: string
-        classification:
-          description: "Simplified sustainability score, where A+ indicates highest\
-            \ performance. Define based on EPD or lifecycle impact benchmarks."
-          enum:
-          - A+
-          - A
-          - B
-          - C
-          - D
-          example: A
-          title: classification
-          type: string
-        VOCEmissions:
-          description: "Volatile Organic Compounds emissions level (None, Low, Medium,\
-            \ High)"
-          enum:
-          - None (<0.01 mg/m³)
-          - Very Low (<0.1 mg/m³)
-          - Low (<0.3 mg/m³)
-          - Moderate (0.3–1.0 mg/m³)
-          - High (>1.0 mg/m³)
-          example: Low (<0.3 mg/m³)
-          title: VOCEmissions
-          type: string
-        recyclability:
-          description: "Percentage of the element that is recyclable, from 0 to 100%"
-          maximum: 100
-          minimum: 0
-          title: recyclability
-          type: number
-        energyEfficiency:
-          description: "Energy performance classification, combining insulation tiers\
-            \ and certifications (LEED, BREEAM, etc.)."
-          enum:
-          - R-1
-          - R-2
-          - R-5
-          - Energy Star
-          - LEED Certified
-          - LEED Silver
-          - LEED Gold
-          - LEED Platinum
-          - BREEAM Good
-          - BREEAM Very Good
-          - BREEAM Excellent
-          - BREEAM Outstanding
-          - Passive House
-          - DGNB Gold
-          example: LEED Gold
-          title: energyEfficiency
-          type: string
-      required:
-      - classification
-      - countryOfManufacturing
-      - energyEfficiency
-      title: PrefabElement_sustainability
-    PrefabElement_reuseAndCircularity:
-      description: Optional data describing how reusable or refurbishable the product
-        is.
-      example:
-        circularityCertification: C2C_gold
-        reusePotential: recyclable
-        refurbishmentScope: partial
-        disassemblyRating: "3"
-      properties:
-        disassemblyRating:
-          description: "Ease of disassembly rated from 1 (not possible) to 5 (tool-free),\
-            \ based on ISO 20887:2020."
-          enum:
-          - "1"
-          - "2"
-          - "3"
-          - "4"
-          - "5"
-          example: "3"
-          title: disassemblyRating
-          type: string
-        reusePotential:
-          description: "End-of-life potential of the element, such as single-use,\
-            \ recyclable, or remanufacturable."
-          enum:
-          - single-use
-          - multi-use
-          - recyclable
-          - remanufacturable
-          example: recyclable
-          title: reusePotential
-          type: string
-        refurbishmentScope:
-          description: "Extent of refurbishment: none, surface-only, partial, or full\
-            \ reuse of functional components."
-          enum:
-          - none
-          - surface-only
-          - partial
-          - full
-          example: partial
-          title: refurbishmentScope
-          type: string
-        circularityCertification:
-          description: "Circularity certification level (e.g., C2C_gold, C2C_platinum)."
-          enum:
-          - none
-          - C2C_basic
-          - C2C_bronze
-          - C2C_silver
-          - C2C_gold
-          - C2C_platinum
-          example: C2C_gold
-          title: circularityCertification
-          type: string
-      required:
-      - circularityCertification
-      - disassemblyRating
-      - refurbishmentScope
-      - reusePotential
-      title: PrefabElement_reuseAndCircularity
     PrefabElement_documentationAndCompliance_certifications:
       example:
         certificationTypes:
@@ -1150,6 +1018,123 @@ components:
           title: manufacturingLeadTime
           type: number
       title: PrefabElement_economicFactors
+    Sustainability_environmentalImpact:
+      properties:
+        classification:
+          description: "Overall sustainability score based on environmental impact\
+            \ (e.g., A+, A, B)."
+          enum:
+          - A+
+          - A
+          - B
+          - C
+          - D
+          example: A+
+          title: classification
+          type: string
+        VOCEmissions:
+          description: "VOC emissions category: None, Low, Medium, or High."
+          enum:
+          - None (<0.01 mg/m³)
+          - Very Low (<0.1 mg/m³)
+          - Low (0.1–0.3 mg/m³)
+          - Moderate (0.3–1.0 mg/m³)
+          - High (>1.0 mg/m³)
+          example: Low (0.1–0.3 mg/m³)
+          title: VOCEmissions
+          type: string
+        recyclability:
+          description: Recyclability rate of the product from 0 to 100%.
+          example: 85
+          maximum: 100
+          minimum: 0
+          title: recyclability
+          type: number
+        energyEfficiency:
+          description: Energy certification level or standard.
+          enum:
+          - R-1
+          - R-2
+          - R-5
+          - Energy Star
+          - LEED Certified
+          - LEED Silver
+          - LEED Gold
+          - LEED Platinum
+          - BREEAM Good
+          - BREEAM Very Good
+          - BREEAM Excellent
+          - BREEAM Outstanding
+          - Passive House
+          - DGNB Gold
+          example: LEED Certified
+          title: energyEfficiency
+          type: string
+      required:
+      - classification
+      - energyEfficiency
+      title: Sustainability_environmentalImpact
+    Sustainability_circularity:
+      properties:
+        disassemblyRating:
+          description: Rating from 1 (not disassemblable) to 5 (tool-free disassembly).
+          enum:
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+          example: "3"
+          title: disassemblyRating
+          type: string
+        reusePotential:
+          description: Primary reuse potential of the element after its service life.
+          enum:
+          - single-use
+          - multi-use
+          - recyclable
+          - remanufacturable
+          example: recyclable
+          title: reusePotential
+          type: string
+        refurbishmentScope:
+          description: "Refurbishment level: none, surface-only, partial, or full."
+          enum:
+          - none
+          - surface-only
+          - partial
+          - full
+          example: partial
+          title: refurbishmentScope
+          type: string
+        circularityCertification:
+          description: "Level of circularity certification (e.g., C2C_gold)."
+          enum:
+          - none
+          - C2C_basic
+          - C2C_bronze
+          - C2C_silver
+          - C2C_gold
+          - C2C_platinum
+          example: C2C_gold
+          title: circularityCertification
+          type: string
+      required:
+      - circularityCertification
+      - disassemblyRating
+      - refurbishmentScope
+      - reusePotential
+      title: Sustainability_circularity
+    Sustainability_origin:
+      properties:
+        countryOfManufacturing:
+          description: Country of production for lifecycle and logistics assessment.
+          example: Germany
+          title: countryOfManufacturing
+          type: string
+      required:
+      - countryOfManufacturing
+      title: Sustainability_origin
   securitySchemes:
     apiKey:
       description: API key for programmatic access.

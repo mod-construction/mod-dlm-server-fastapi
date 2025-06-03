@@ -21,21 +21,19 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
-from typing import Any, ClassVar, Dict, List, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PrefabElementBoundingBox(BaseModel):
+class SustainabilityOrigin(BaseModel):
     """
-    3D bounding dimensions of the prefab element, defining its spatial envelope.
+    SustainabilityOrigin
     """ # noqa: E501
-    width: Union[StrictFloat, StrictInt]
-    height: Union[StrictFloat, StrictInt]
-    depth: Union[StrictFloat, StrictInt]
-    __properties: ClassVar[List[str]] = ["width", "height", "depth"]
+    country_of_manufacturing: StrictStr = Field(description="Country of production for lifecycle and logistics assessment.", alias="countryOfManufacturing")
+    __properties: ClassVar[List[str]] = ["countryOfManufacturing"]
 
     model_config = {
         "populate_by_name": True,
@@ -55,7 +53,7 @@ class PrefabElementBoundingBox(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PrefabElementBoundingBox from a JSON string"""
+        """Create an instance of SustainabilityOrigin from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,7 +76,7 @@ class PrefabElementBoundingBox(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PrefabElementBoundingBox from a dict"""
+        """Create an instance of SustainabilityOrigin from a dict"""
         if obj is None:
             return None
 
@@ -86,9 +84,7 @@ class PrefabElementBoundingBox(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "width": obj.get("width"),
-            "height": obj.get("height"),
-            "depth": obj.get("depth")
+            "countryOfManufacturing": obj.get("countryOfManufacturing")
         })
         return _obj
 
