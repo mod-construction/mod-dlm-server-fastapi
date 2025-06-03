@@ -808,12 +808,15 @@ components:
           type: number
       title: PrefabElement_structuralProperties
     PrefabElement_performance_fireResistance:
+      description: "Fire resistance classification of the material, based on Euroclass\
+        \ standards (EN 13501-1)."
       example:
         reactionToFireClassification: A1
         fireResistanceDuration: 30min
       properties:
         reactionToFireClassification:
-          description: Euroclass fire reaction classification (EN 13501-1)
+          description: Fire resistance classification based on Euroclass standards
+            (EN 13501-1).
           enum:
           - A1
           - A2
@@ -822,10 +825,10 @@ components:
           - D
           - E
           - F
-          title: reactionToFireClassification
+          example: A1
           type: string
         fireResistanceDuration:
-          description: Fire resistance duration in minutes (EN 1363-1 / ASTM E119)
+          description: Fire resistance duration in minutes (EN 1363-1 / ASTM E119).
           enum:
           - 30min
           - 60min
@@ -833,7 +836,7 @@ components:
           - 120min
           - 180min
           - 240min
-          title: fireResistanceDuration
+          example: 30min
           type: string
       required:
       - fireResistanceDuration

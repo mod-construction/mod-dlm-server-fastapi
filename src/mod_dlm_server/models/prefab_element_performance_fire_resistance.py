@@ -30,10 +30,10 @@ except ImportError:
 
 class PrefabElementPerformanceFireResistance(BaseModel):
     """
-    PrefabElementPerformanceFireResistance
+    Fire resistance classification of the material, based on Euroclass standards (EN 13501-1).
     """ # noqa: E501
-    reaction_to_fire_classification: StrictStr = Field(description="Euroclass fire reaction classification (EN 13501-1)", alias="reactionToFireClassification")
-    fire_resistance_duration: StrictStr = Field(description="Fire resistance duration in minutes (EN 1363-1 / ASTM E119)", alias="fireResistanceDuration")
+    reaction_to_fire_classification: StrictStr = Field(description="Fire resistance classification based on Euroclass standards (EN 13501-1).", alias="reactionToFireClassification")
+    fire_resistance_duration: StrictStr = Field(description="Fire resistance duration in minutes (EN 1363-1 / ASTM E119).", alias="fireResistanceDuration")
     __properties: ClassVar[List[str]] = ["reactionToFireClassification", "fireResistanceDuration"]
 
     @field_validator('reaction_to_fire_classification')
