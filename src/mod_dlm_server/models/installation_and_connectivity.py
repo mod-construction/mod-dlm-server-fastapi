@@ -22,32 +22,40 @@ import json
 
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing_extensions import Annotated
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PrefabElementMaterial(BaseModel):
+class InstallationAndConnectivity(BaseModel):
     """
-    Material and physical properties of the prefab element.
+    Describes how the prefab element is installed and what structural systems it is compatible with.
     """ # noqa: E501
-    finish_material: StrictStr = Field(description="Primary material of the product element.", alias="finishMaterial")
-    structural_material: StrictStr = Field(description="Primary material of the product element.", alias="structuralMaterial")
-    __properties: ClassVar[List[str]] = ["finishMaterial", "structuralMaterial"]
+    connection_type: Optional[StrictStr] = Field(default=None, description="Type of connection used for assembly, including mechanical, chemical, and modular methods.", alias="connectionType")
+    installation_time: Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]] = Field(description="Estimated installation time in minutes", alias="installationTime")
+    compatibility: Optional[StrictStr] = Field(default=None, description="Structural systems compatible with the prefab element, supporting integration into various construction assemblies.")
+    __properties: ClassVar[List[str]] = ["connectionType", "installationTime", "compatibility"]
 
-    @field_validator('finish_material')
-    def finish_material_validate_enum(cls, value):
+    @field_validator('connection_type')
+    def connection_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in ('Timber', 'Steel', 'Concrete', 'Hybrid', 'Other',):
-            raise ValueError("must be one of enum values ('Timber', 'Steel', 'Concrete', 'Hybrid', 'Other')")
+        if value is None:
+            return value
+
+        if value not in ('Bolt-on', 'Welded', 'Clip-on', 'Adhesive', 'Mortar', 'Snap-fit', 'Plug-and-Play', 'Dry Joint',):
+            raise ValueError("must be one of enum values ('Bolt-on', 'Welded', 'Clip-on', 'Adhesive', 'Mortar', 'Snap-fit', 'Plug-and-Play', 'Dry Joint')")
         return value
 
-    @field_validator('structural_material')
-    def structural_material_validate_enum(cls, value):
+    @field_validator('compatibility')
+    def compatibility_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in ('Timber', 'Steel', 'Concrete', 'Hybrid', 'Other',):
-            raise ValueError("must be one of enum values ('Timber', 'Steel', 'Concrete', 'Hybrid', 'Other')")
+        if value is None:
+            return value
+
+        if value not in ('Steel Frame', 'Wood Frame', 'Concrete Structure', 'Brickwork', 'Modular Systems', 'Glass Facades', 'Composite Materials', 'CLT', 'Light Gauge Steel', 'Masonry Infill',):
+            raise ValueError("must be one of enum values ('Steel Frame', 'Wood Frame', 'Concrete Structure', 'Brickwork', 'Modular Systems', 'Glass Facades', 'Composite Materials', 'CLT', 'Light Gauge Steel', 'Masonry Infill')")
         return value
 
     model_config = {
@@ -68,7 +76,7 @@ class PrefabElementMaterial(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PrefabElementMaterial from a JSON string"""
+        """Create an instance of InstallationAndConnectivity from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -91,7 +99,7 @@ class PrefabElementMaterial(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PrefabElementMaterial from a dict"""
+        """Create an instance of InstallationAndConnectivity from a dict"""
         if obj is None:
             return None
 
@@ -99,8 +107,9 @@ class PrefabElementMaterial(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "finishMaterial": obj.get("finishMaterial"),
-            "structuralMaterial": obj.get("structuralMaterial")
+            "connectionType": obj.get("connectionType"),
+            "installationTime": obj.get("installationTime"),
+            "compatibility": obj.get("compatibility")
         })
         return _obj
 

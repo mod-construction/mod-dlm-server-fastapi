@@ -21,20 +21,37 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
+from typing_extensions import Annotated
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PrefabElementDocumentationAndComplianceCertifications(BaseModel):
+class PrefabElementVersionMetadata(BaseModel):
     """
-    PrefabElementDocumentationAndComplianceCertifications
+    Versioning and publishing status metadata of the element.
     """ # noqa: E501
-    certification_types: List[StrictStr] = Field(alias="certificationTypes")
-    regulatory_approvals: List[StrictStr] = Field(alias="regulatoryApprovals")
-    __properties: ClassVar[List[str]] = ["certificationTypes", "regulatoryApprovals"]
+    version: Annotated[str, Field(strict=True)] = Field(description="Semantic version of the prefab element, e.g., '1.0.0'")
+    status: StrictStr = Field(description="Publishing status of the element")
+    last_updated: datetime = Field(description="ISO 8601 timestamp of the last update", alias="lastUpdated")
+    __properties: ClassVar[List[str]] = ["version", "status", "lastUpdated"]
+
+    @field_validator('version')
+    def version_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^\d+\.\d+\.\d+$", value):
+            raise ValueError(r"must validate the regular expression /^\d+\.\d+\.\d+$/")
+        return value
+
+    @field_validator('status')
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in ('draft', 'published', 'deprecated',):
+            raise ValueError("must be one of enum values ('draft', 'published', 'deprecated')")
+        return value
 
     model_config = {
         "populate_by_name": True,
@@ -54,7 +71,7 @@ class PrefabElementDocumentationAndComplianceCertifications(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PrefabElementDocumentationAndComplianceCertifications from a JSON string"""
+        """Create an instance of PrefabElementVersionMetadata from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -77,7 +94,7 @@ class PrefabElementDocumentationAndComplianceCertifications(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PrefabElementDocumentationAndComplianceCertifications from a dict"""
+        """Create an instance of PrefabElementVersionMetadata from a dict"""
         if obj is None:
             return None
 
@@ -85,8 +102,9 @@ class PrefabElementDocumentationAndComplianceCertifications(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "certificationTypes": obj.get("certificationTypes"),
-            "regulatoryApprovals": obj.get("regulatoryApprovals")
+            "version": obj.get("version"),
+            "status": obj.get("status"),
+            "lastUpdated": obj.get("lastUpdated")
         })
         return _obj
 

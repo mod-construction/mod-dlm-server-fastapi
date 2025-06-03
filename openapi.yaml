@@ -12,10 +12,10 @@ info:
     name: MIT
     url: https://github.com/mod-construction/mod-dlm/blob/main/LICENSE
   title: mod-dlm API
-  version: 1.0.11
+  version: 1.0.12
   x-logo:
     url: mod-dlm-logo.png
-    backgroundColor: '#FFFFFF'
+    backgroundColor: "#FFFFFF"
     altText: mod-dlm logo
 servers:
 - description: The dev server.
@@ -37,14 +37,14 @@ paths:
         name: id
         required: true
         schema:
-          $ref: '#/components/schemas/ElementId'
+          $ref: "#/components/schemas/ElementId"
         style: simple
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PrefabElement'
+                $ref: "#/components/schemas/PrefabElement"
           description: The element was retrieved successfully.
         "400":
           description: Bad request.
@@ -60,14 +60,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ElementCreate'
+              $ref: "#/components/schemas/ElementCreate"
         description: The element to create.
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PrefabElement'
+                $ref: "#/components/schemas/PrefabElement"
           description: The element was created successfully.
         "400":
           description: Bad request.
@@ -80,7 +80,6 @@ components:
       description: A unique identifier for an element
       example: 4dd643ff-7ec7-4666-9c88-50b7d3da34e4
       format: uuid
-      title: id
       type: string
     PrefabElement:
       description: Prefab Element
@@ -90,34 +89,34 @@ components:
           width: 0.8008281904610115
           height: 6.027456183070403
         images:
-        - images
-        - images
-        installationAndConnectivity:
-          installationTime: installationTime
-          connectionType: Bolt-on
-          compatibility: Steel Frame
+        - https://example.com/images/clt-wall-front.png
+        installationAndConnectivity: ""
         dimensional:
           width:
-            min: 5.962133916683182
-            max: 5.637376656633329
+            min: 10
+            max: 20
           length:
-            min: 5.962133916683182
-            max: 5.637376656633329
+            min: 10
+            max: 20
           height:
-            min: 5.962133916683182
-            max: 5.637376656633329
+            min: 10
+            max: 20
         structuralProperties:
-          windLoadResistance: Class A
+          windLoadResistance: 2.5–4.0 kPa
           loadBearingCapacity:
-            unit: "N"
-            loadDistribution: loadDistribution
-            maximumLoad: 2.3021358869347655
-          seismicResistance: Zone 1
+            maximumLoad: 5
+            forceUnit: kN
+            loadDistribution: point
+            testStandard: EN 1991-1-1
+          deflectionLimit: 5.962133916683182
+          seismicResistance: 0.167g < SDS ≤ 0.33g
+          safetyFactor: 1.5637376656633328
         lifecycleAndMaintenance:
-          maintenanceRequirements: maintenanceRequirements
-          warranty: warranty
-          expectedLifespan: expectedLifespan
-        description: description
+          maintenanceRequirements: Regular cleaning and inspection.
+          warranty: 10 years warranty.
+          expectedLifespan: 50
+        description: This CLT wall panel is suitable for multi-story residential buildings
+          and meets fire resistance standards.
         documentationAndCompliance:
           technicalSpecifications: technicalSpecifications
           certifications:
@@ -129,13 +128,19 @@ components:
             - regulatoryApprovals
         sustainability:
           countryOfManufacturing: countryOfManufacturing
-          recyclability: 0%
-          classification: A+
-          energyEfficiency: R-1
-          VOCEmissions: None
+          recyclability: 41.45608029883936
+          classification: A
+          energyEfficiency: LEED Gold
+          VOCEmissions: Low (<0.3 mg/m³)
+        reuseAndCircularity:
+          circularityCertification: C2C_gold
+          reusePotential: recyclable
+          refurbishmentScope: partial
+          disassemblyRating: "3"
         productCategory:
-          category: Solid Wall Panels
-          buildingSystem: Wall
+          buildingSystem: Facade
+          category: Structural Insulated Panels (SIPs)
+        bimModelUrl: https://example.com/models/clt-wall.ifc
         aestheticAndCustomizationOptions:
           colorOptions:
           - colorOptions
@@ -143,64 +148,128 @@ components:
           texture: texture
           modularAdaptability: modularAdaptability
         performance:
-          thermalTransmittance: 1.4122802483006218
+          thermalTransmittance: 0.46042717738695305
+          fireResistance:
+            reactionToFireClassification: A1
+            fireResistanceDuration: 30min
           acousticProperties:
-            acousticPerformance: acousticPerformance
-            soundInsulationRating: soundInsulationRating
-          resistanceToFireClassification: A1
+            spectrumAdaptationTerm: 9.301444243932576
+            weightedSoundReductionIndex: 7.061401241503109
+          airTightness: 0.3616076749251911
+          vaporPermeability: 0.20271230230023218
         material:
-          finishMaterial: Timber
-          structuralMaterial: Timber
-        name: name
+          finishMaterial: Steel
+          structuralMaterial: Steel
+        ifcType: IfcWallStandardCase
+        name: Cross-Laminated Timber Wall Panel
+        versionMetadata:
+          lastUpdated: 2000-01-23T04:56:07.000+00:00
+          version: version
+          status: draft
         id: 4dd643ff-7ec7-4666-9c88-50b7d3da34e4
         economicFactors:
-          manufacturingLeadTime: manufacturingLeadTime
-          costPerUnit: 9.301444243932576
+          manufacturingLeadTime: 21
+          currency: EUR
+          costPerUnit: 180.5
       properties:
         id:
-          description: A unique identifier for an element
+          description: A unique identifier for the prefab element (UUID).
           example: 4dd643ff-7ec7-4666-9c88-50b7d3da34e4
           format: uuid
           title: id
           type: string
+        versionMetadata:
+          $ref: "#/components/schemas/PrefabElement_versionMetadata"
         name:
+          description: Human-readable name of the prefab element.
+          example: Cross-Laminated Timber Wall Panel
           minLength: 1
           title: name
           type: string
         description:
+          description: "Detailed description of the prefab element, including its\
+            \ intended use or application."
+          example: This CLT wall panel is suitable for multi-story residential buildings
+            and meets fire resistance standards.
           minLength: 1
           title: description
           type: string
         boundingBox:
-          $ref: '#/components/schemas/PrefabElement_boundingBox'
+          $ref: "#/components/schemas/PrefabElement_boundingBox"
         images:
+          description: List of image URLs showing the prefab element from various
+            angles.
+          example:
+          - https://example.com/images/clt-wall-front.png
           items:
             type: string
           minItems: 1
           title: images
           type: array
         productCategory:
-          $ref: '#/components/schemas/ProductCategory'
+          $ref: "#/components/schemas/PrefabElement_productCategory"
         material:
-          $ref: '#/components/schemas/PrefabElement_material'
+          $ref: "#/components/schemas/PrefabElement_material"
         dimensional:
-          $ref: '#/components/schemas/PrefabElement_dimensional'
+          $ref: "#/components/schemas/PrefabElement_dimensional"
         structuralProperties:
-          $ref: '#/components/schemas/PrefabElement_structuralProperties'
+          $ref: "#/components/schemas/PrefabElement_structuralProperties"
         performance:
-          $ref: '#/components/schemas/PrefabElement_performance'
+          $ref: "#/components/schemas/PrefabElement_performance"
         sustainability:
-          $ref: '#/components/schemas/PrefabElement_sustainability'
+          $ref: "#/components/schemas/PrefabElement_sustainability"
+        reuseAndCircularity:
+          $ref: "#/components/schemas/PrefabElement_reuseAndCircularity"
         documentationAndCompliance:
-          $ref: '#/components/schemas/PrefabElement_documentationAndCompliance'
+          $ref: "#/components/schemas/PrefabElement_documentationAndCompliance"
         installationAndConnectivity:
-          $ref: '#/components/schemas/PrefabElement_installationAndConnectivity'
+          allOf:
+          - $ref: "#/components/schemas/InstallationAndConnectivity"
+          description: Optional installation guidelines and connectivity interface
+            descriptions.
+          title: installationAndConnectivity
         lifecycleAndMaintenance:
-          $ref: '#/components/schemas/PrefabElement_lifecycleAndMaintenance'
+          $ref: "#/components/schemas/PrefabElement_lifecycleAndMaintenance"
         aestheticAndCustomizationOptions:
-          $ref: '#/components/schemas/PrefabElement_aestheticAndCustomizationOptions'
+          $ref: "#/components/schemas/PrefabElement_aestheticAndCustomizationOptions"
         economicFactors:
-          $ref: '#/components/schemas/PrefabElement_economicFactors'
+          $ref: "#/components/schemas/PrefabElement_economicFactors"
+        ifcType:
+          description: "IFC Building Element types based on IFC 4.3 used in BIM tools\
+            \ for semantic classification. (e.g., IfcWall, IfcSlab)."
+          enum:
+          - IfcBeam
+          - IfcChimney
+          - IfcColumn
+          - IfcCovering
+          - IfcCurtainWall
+          - IfcDoor
+          - IfcFooting
+          - IfcMember
+          - IfcPile
+          - IfcPlate
+          - IfcRailing
+          - IfcRamp
+          - IfcRampFlight
+          - IfcRoof
+          - IfcShadingDevice
+          - IfcSlab
+          - IfcStair
+          - IfcStairFlight
+          - IfcWall
+          - IfcWallStandardCase
+          - IfcWindow
+          - IfcBuildingElementProxy
+          example: IfcWallStandardCase
+          title: ifcType
+          type: string
+        bimModelUrl:
+          description: Optional URL pointing to a downloadable BIM model or online
+            viewer for the element.
+          example: https://example.com/models/clt-wall.ifc
+          format: uri
+          title: bimModelUrl
+          type: string
       required:
       - boundingBox
       - description
@@ -210,14 +279,305 @@ components:
       - material
       - name
       - productCategory
+      - versionMetadata
       title: PrefabElement
-    ProductCategory:
-      description: Product Category
+    InstallationAndConnectivity:
+      description: Describes how the prefab element is installed and what structural
+        systems it is compatible with.
+      properties:
+        connectionType:
+          description: "Type of connection used for assembly, including mechanical,\
+            \ chemical, and modular methods."
+          enum:
+          - Bolt-on
+          - Welded
+          - Clip-on
+          - Adhesive
+          - Mortar
+          - Snap-fit
+          - Plug-and-Play
+          - Dry Joint
+          example: Bolt-on
+          title: connectionType
+          type: string
+        installationTime:
+          description: Estimated installation time in minutes
+          minimum: 0
+          title: installationTime
+          type: number
+        compatibility:
+          description: "Structural systems compatible with the prefab element, supporting\
+            \ integration into various construction assemblies."
+          enum:
+          - Steel Frame
+          - Wood Frame
+          - Concrete Structure
+          - Brickwork
+          - Modular Systems
+          - Glass Facades
+          - Composite Materials
+          - CLT
+          - Light Gauge Steel
+          - Masonry Infill
+          example: Concrete Structure
+          title: compatibility
+          type: string
+      required:
+      - installationTime
+      title: InstallationAndConnectivity
+    ElementCreate:
+      description: An element to create.
       example:
-        category: Solid Wall Panels
-        buildingSystem: Wall
+        boundingBox:
+          depth: 1.4658129805029452
+          width: 0.8008281904610115
+          height: 6.027456183070403
+        images:
+        - https://example.com/images/clt-wall-front.png
+        installationAndConnectivity: ""
+        dimensional:
+          width:
+            min: 10
+            max: 20
+          length:
+            min: 10
+            max: 20
+          height:
+            min: 10
+            max: 20
+        structuralProperties:
+          windLoadResistance: 2.5–4.0 kPa
+          loadBearingCapacity:
+            maximumLoad: 5
+            forceUnit: kN
+            loadDistribution: point
+            testStandard: EN 1991-1-1
+          deflectionLimit: 5.962133916683182
+          seismicResistance: 0.167g < SDS ≤ 0.33g
+          safetyFactor: 1.5637376656633328
+        lifecycleAndMaintenance:
+          maintenanceRequirements: Regular cleaning and inspection.
+          warranty: 10 years warranty.
+          expectedLifespan: 50
+        description: This CLT wall panel is suitable for multi-story residential buildings
+          and meets fire resistance standards.
+        documentationAndCompliance:
+          technicalSpecifications: technicalSpecifications
+          certifications:
+            certificationTypes:
+            - certificationTypes
+            - certificationTypes
+            regulatoryApprovals:
+            - regulatoryApprovals
+            - regulatoryApprovals
+        sustainability:
+          countryOfManufacturing: countryOfManufacturing
+          recyclability: 41.45608029883936
+          classification: A
+          energyEfficiency: LEED Gold
+          VOCEmissions: Low (<0.3 mg/m³)
+        reuseAndCircularity:
+          circularityCertification: C2C_gold
+          reusePotential: recyclable
+          refurbishmentScope: partial
+          disassemblyRating: "3"
+        productCategory:
+          buildingSystem: Facade
+          category: Structural Insulated Panels (SIPs)
+        bimModelUrl: https://example.com/models/clt-wall.ifc
+        aestheticAndCustomizationOptions:
+          colorOptions:
+          - colorOptions
+          - colorOptions
+          texture: texture
+          modularAdaptability: modularAdaptability
+        performance:
+          thermalTransmittance: 0.46042717738695305
+          fireResistance:
+            reactionToFireClassification: A1
+            fireResistanceDuration: 30min
+          acousticProperties:
+            spectrumAdaptationTerm: 9.301444243932576
+            weightedSoundReductionIndex: 7.061401241503109
+          airTightness: 0.3616076749251911
+          vaporPermeability: 0.20271230230023218
+        material:
+          finishMaterial: Steel
+          structuralMaterial: Steel
+        ifcType: IfcWallStandardCase
+        name: Cross-Laminated Timber Wall Panel
+        versionMetadata:
+          lastUpdated: 2000-01-23T04:56:07.000+00:00
+          version: version
+          status: draft
+        economicFactors:
+          manufacturingLeadTime: 21
+          currency: EUR
+          costPerUnit: 180.5
+      properties:
+        versionMetadata:
+          $ref: "#/components/schemas/PrefabElement_versionMetadata"
+        name:
+          description: Human-readable name of the prefab element.
+          example: Cross-Laminated Timber Wall Panel
+          minLength: 1
+          title: name
+          type: string
+        description:
+          description: "Detailed description of the prefab element, including its\
+            \ intended use or application."
+          example: This CLT wall panel is suitable for multi-story residential buildings
+            and meets fire resistance standards.
+          minLength: 1
+          title: description
+          type: string
+        boundingBox:
+          $ref: "#/components/schemas/PrefabElement_boundingBox"
+        images:
+          description: List of image URLs showing the prefab element from various
+            angles.
+          example:
+          - https://example.com/images/clt-wall-front.png
+          items:
+            type: string
+          minItems: 1
+          title: images
+          type: array
+        productCategory:
+          $ref: "#/components/schemas/PrefabElement_productCategory"
+        material:
+          $ref: "#/components/schemas/PrefabElement_material"
+        dimensional:
+          $ref: "#/components/schemas/PrefabElement_dimensional"
+        structuralProperties:
+          $ref: "#/components/schemas/PrefabElement_structuralProperties"
+        performance:
+          $ref: "#/components/schemas/PrefabElement_performance"
+        sustainability:
+          $ref: "#/components/schemas/PrefabElement_sustainability"
+        reuseAndCircularity:
+          $ref: "#/components/schemas/PrefabElement_reuseAndCircularity"
+        documentationAndCompliance:
+          $ref: "#/components/schemas/PrefabElement_documentationAndCompliance"
+        installationAndConnectivity:
+          allOf:
+          - $ref: "#/components/schemas/InstallationAndConnectivity"
+          description: Optional installation guidelines and connectivity interface
+            descriptions.
+          title: installationAndConnectivity
+        lifecycleAndMaintenance:
+          $ref: "#/components/schemas/PrefabElement_lifecycleAndMaintenance"
+        aestheticAndCustomizationOptions:
+          $ref: "#/components/schemas/PrefabElement_aestheticAndCustomizationOptions"
+        economicFactors:
+          $ref: "#/components/schemas/PrefabElement_economicFactors"
+        ifcType:
+          description: "IFC Building Element types based on IFC 4.3 used in BIM tools\
+            \ for semantic classification. (e.g., IfcWall, IfcSlab)."
+          enum:
+          - IfcBeam
+          - IfcChimney
+          - IfcColumn
+          - IfcCovering
+          - IfcCurtainWall
+          - IfcDoor
+          - IfcFooting
+          - IfcMember
+          - IfcPile
+          - IfcPlate
+          - IfcRailing
+          - IfcRamp
+          - IfcRampFlight
+          - IfcRoof
+          - IfcShadingDevice
+          - IfcSlab
+          - IfcStair
+          - IfcStairFlight
+          - IfcWall
+          - IfcWallStandardCase
+          - IfcWindow
+          - IfcBuildingElementProxy
+          example: IfcWallStandardCase
+          title: ifcType
+          type: string
+        bimModelUrl:
+          description: Optional URL pointing to a downloadable BIM model or online
+            viewer for the element.
+          example: https://example.com/models/clt-wall.ifc
+          format: uri
+          title: bimModelUrl
+          type: string
+      required:
+      - boundingBox
+      - description
+      - dimensional
+      - images
+      - material
+      - name
+      - productCategory
+      - versionMetadata
+      title: ElementCreate
+    PrefabElement_versionMetadata:
+      description: Versioning and publishing status metadata of the element.
+      example:
+        lastUpdated: 2000-01-23T04:56:07.000+00:00
+        version: version
+        status: draft
+      properties:
+        version:
+          description: "Semantic version of the prefab element, e.g., '1.0.0'"
+          pattern: ^\d+\.\d+\.\d+$
+          title: version
+          type: string
+        status:
+          description: Publishing status of the element
+          enum:
+          - draft
+          - published
+          - deprecated
+          title: status
+          type: string
+        lastUpdated:
+          description: ISO 8601 timestamp of the last update
+          format: date-time
+          title: lastUpdated
+          type: string
+      required:
+      - lastUpdated
+      - status
+      - version
+      title: PrefabElement_versionMetadata
+    PrefabElement_boundingBox:
+      description: "3D bounding dimensions of the prefab element, defining its spatial\
+        \ envelope."
+      example:
+        depth: 1.4658129805029452
+        width: 0.8008281904610115
+        height: 6.027456183070403
+      properties:
+        width:
+          title: width
+          type: number
+        height:
+          title: height
+          type: number
+        depth:
+          title: depth
+          type: number
+      required:
+      - depth
+      - height
+      - width
+      title: PrefabElement_boundingBox
+    PrefabElement_productCategory:
+      description: "Product category classification (e.g., Wall Panels, Stairs, Facade\
+        \ Elements)."
+      example:
+        buildingSystem: Facade
+        category: Structural Insulated Panels (SIPs)
       properties:
         category:
+          description: Specific product category within building systems.
           enum:
           - Boarding
           - Solid Wall Panels
@@ -240,8 +600,11 @@ components:
           - Roof Panel
           - Roof Truss
           - Prefabricated Stairs
+          example: Structural Insulated Panels (SIPs)
+          title: category
           type: string
         buildingSystem:
+          description: Building system category to which the product element belongs.
           enum:
           - Wall
           - Balcony
@@ -253,174 +616,39 @@ components:
           - Plants
           - Roofs
           - Stairs
+          example: Facade
+          title: buildingSystem
           type: string
       required:
       - buildingSystem
       - category
-      title: ProductCategory
-    ElementCreate:
-      description: An element to create.
-      example:
-        boundingBox:
-          depth: 1.4658129805029452
-          width: 0.8008281904610115
-          height: 6.027456183070403
-        images:
-        - images
-        - images
-        installationAndConnectivity:
-          installationTime: installationTime
-          connectionType: Bolt-on
-          compatibility: Steel Frame
-        dimensional:
-          width:
-            min: 5.962133916683182
-            max: 5.637376656633329
-          length:
-            min: 5.962133916683182
-            max: 5.637376656633329
-          height:
-            min: 5.962133916683182
-            max: 5.637376656633329
-        structuralProperties:
-          windLoadResistance: Class A
-          loadBearingCapacity:
-            unit: "N"
-            loadDistribution: loadDistribution
-            maximumLoad: 2.3021358869347655
-          seismicResistance: Zone 1
-        lifecycleAndMaintenance:
-          maintenanceRequirements: maintenanceRequirements
-          warranty: warranty
-          expectedLifespan: expectedLifespan
-        description: description
-        documentationAndCompliance:
-          technicalSpecifications: technicalSpecifications
-          certifications:
-            certificationTypes:
-            - certificationTypes
-            - certificationTypes
-            regulatoryApprovals:
-            - regulatoryApprovals
-            - regulatoryApprovals
-        sustainability:
-          countryOfManufacturing: countryOfManufacturing
-          recyclability: 0%
-          classification: A+
-          energyEfficiency: R-1
-          VOCEmissions: None
-        productCategory:
-          category: Solid Wall Panels
-          buildingSystem: Wall
-        aestheticAndCustomizationOptions:
-          colorOptions:
-          - colorOptions
-          - colorOptions
-          texture: texture
-          modularAdaptability: modularAdaptability
-        performance:
-          thermalTransmittance: 1.4122802483006218
-          acousticProperties:
-            acousticPerformance: acousticPerformance
-            soundInsulationRating: soundInsulationRating
-          resistanceToFireClassification: A1
-        material:
-          finishMaterial: Timber
-          structuralMaterial: Timber
-        name: name
-        economicFactors:
-          manufacturingLeadTime: manufacturingLeadTime
-          costPerUnit: 9.301444243932576
-      properties:
-        name:
-          minLength: 1
-          title: name
-          type: string
-        description:
-          minLength: 1
-          title: description
-          type: string
-        boundingBox:
-          $ref: '#/components/schemas/PrefabElement_boundingBox'
-        images:
-          items:
-            type: string
-          minItems: 1
-          title: images
-          type: array
-        productCategory:
-          $ref: '#/components/schemas/ProductCategory'
-        material:
-          $ref: '#/components/schemas/PrefabElement_material'
-        dimensional:
-          $ref: '#/components/schemas/PrefabElement_dimensional'
-        structuralProperties:
-          $ref: '#/components/schemas/PrefabElement_structuralProperties'
-        performance:
-          $ref: '#/components/schemas/PrefabElement_performance'
-        sustainability:
-          $ref: '#/components/schemas/PrefabElement_sustainability'
-        documentationAndCompliance:
-          $ref: '#/components/schemas/PrefabElement_documentationAndCompliance'
-        installationAndConnectivity:
-          $ref: '#/components/schemas/PrefabElement_installationAndConnectivity'
-        lifecycleAndMaintenance:
-          $ref: '#/components/schemas/PrefabElement_lifecycleAndMaintenance'
-        aestheticAndCustomizationOptions:
-          $ref: '#/components/schemas/PrefabElement_aestheticAndCustomizationOptions'
-        economicFactors:
-          $ref: '#/components/schemas/PrefabElement_economicFactors'
-      required:
-      - boundingBox
-      - description
-      - dimensional
-      - images
-      - material
-      - name
-      - productCategory
-      title: ElementCreate
-    PrefabElement_boundingBox:
-      description: The bounding box of an element in millimeters.
-      example:
-        depth: 1.4658129805029452
-        width: 0.8008281904610115
-        height: 6.027456183070403
-      properties:
-        width:
-          title: width
-          type: number
-        height:
-          title: height
-          type: number
-        depth:
-          title: depth
-          type: number
-      required:
-      - depth
-      - height
-      - width
-      title: PrefabElement_boundingBox
+      title: PrefabElement_productCategory
     PrefabElement_material:
+      description: Material and physical properties of the prefab element.
       example:
-        finishMaterial: Timber
-        structuralMaterial: Timber
+        finishMaterial: Steel
+        structuralMaterial: Steel
       properties:
         finishMaterial:
+          description: Primary material of the product element.
           enum:
           - Timber
           - Steel
           - Concrete
           - Hybrid
           - Other
+          example: Steel
           title: finishMaterial
           type: string
         structuralMaterial:
+          description: Primary material of the product element.
           enum:
           - Timber
           - Steel
           - Concrete
           - Hybrid
           - Other
+          example: Steel
           title: structuralMaterial
           type: string
       required:
@@ -428,120 +656,164 @@ components:
       - structuralMaterial
       title: PrefabElement_material
     PrefabElement_dimensional_width:
+      description: A range of dimensions in millimeters
       example:
-        min: 5.962133916683182
-        max: 5.637376656633329
+        min: 10
+        max: 20
       properties:
         min:
-          title: min
           type: number
         max:
-          title: max
           type: number
       required:
       - max
       - min
       title: PrefabElement_dimensional_width
     PrefabElement_dimensional:
+      description: Dimensional characteristics of the prefab element.
       example:
         width:
-          min: 5.962133916683182
-          max: 5.637376656633329
+          min: 10
+          max: 20
         length:
-          min: 5.962133916683182
-          max: 5.637376656633329
+          min: 10
+          max: 20
         height:
-          min: 5.962133916683182
-          max: 5.637376656633329
+          min: 10
+          max: 20
       properties:
         width:
-          $ref: '#/components/schemas/PrefabElement_dimensional_width'
+          $ref: "#/components/schemas/PrefabElement_dimensional_width"
         height:
-          $ref: '#/components/schemas/PrefabElement_dimensional_width'
+          $ref: "#/components/schemas/PrefabElement_dimensional_width"
         length:
-          $ref: '#/components/schemas/PrefabElement_dimensional_width'
+          $ref: "#/components/schemas/PrefabElement_dimensional_width"
       required:
       - height
       - length
       - width
       title: PrefabElement_dimensional
     PrefabElement_structuralProperties_loadBearingCapacity:
+      description: "The maximum load the element can bear, expressed as a positive\
+        \ number (e.g., 5.0)"
       example:
-        unit: "N"
-        loadDistribution: loadDistribution
-        maximumLoad: 2.3021358869347655
+        maximumLoad: 5
+        forceUnit: kN
+        loadDistribution: point
+        testStandard: EN 1991-1-1
       properties:
         maximumLoad:
-          title: maximumLoad
+          description: "The maximum load the element can bear, expressed as a positive\
+            \ number (e.g., 5.0)"
           type: number
-        unit:
+        forceUnit:
+          description: "Unit of force measurement, e.g., 'kN' for kilonewtons or 'N'\
+            \ for newtons"
           enum:
           - "N"
           - kN
           - lbf
           - kgf
-          title: unit
           type: string
         loadDistribution:
-          title: loadDistribution
+          description: The type of load distribution applied to the element.
+          enum:
+          - point
+          - uniform
+          - triangular
+          - trapezoidal
+          - eccentric
+          - custom
+          example: point
+          type: string
+        testStandard:
+          description: Structural load testing standard used to determine maximum
+            load.
+          enum:
+          - EN 1991-1-1
+          - ASTM E72
+          - ISO 4355
+          example: ASTM E72
           type: string
       required:
+      - forceUnit
       - loadDistribution
       - maximumLoad
-      - unit
       title: PrefabElement_structuralProperties_loadBearingCapacity
+    PrefabElement_structuralProperties_seismicResistance:
+      anyOf:
+      - description: "Seismic Design Spectral Acceleration at short period (SDS),\
+          \ as defined by ASCE 7 or Eurocode 8 hazard maps."
+        enum:
+        - SDS ≤ 0.167g
+        - 0.167g < SDS ≤ 0.33g
+        - 0.33g < SDS ≤ 0.50g
+        - SDS > 0.50g
+        example: 0.167g < SDS ≤ 0.33g
+        type: string
+      - description: "Custom seismic classification (e.g., Eurocode 8, ASCE 7 zone)"
+        type: string
+      title: PrefabElement_structuralProperties_seismicResistance
+    PrefabElement_structuralProperties_windLoadResistance:
+      anyOf:
+      - description: "Wind pressure resistance in kilopascals (kPa), typically calculated\
+          \ per EN 1991-1-4 or ASCE 7-16."
+        enum:
+        - ≤ 1.0 kPa
+        - 1.0–2.5 kPa
+        - 2.5–4.0 kPa
+        - '> 4.0 kPa'
+        example: 2.5–4.0 kPa
+        type: string
+      - description: "Custom wind classification or rating (e.g., EN 1991-1-4)"
+        type: string
+      title: PrefabElement_structuralProperties_windLoadResistance
+    PrefabElement_structuralProperties_deflectionLimit:
+      anyOf:
+      - description: Maximum deflection under load in mm
+        type: number
+      - description: "Deflection limit as a span ratio (e.g., 'L/250')"
+        pattern: ^L\/\d+$
+        type: string
+      description: "Deflection control criteria under load: either fixed displacement\
+        \ in mm or span ratio like L/250"
+      title: PrefabElement_structuralProperties_deflectionLimit
     PrefabElement_structuralProperties:
+      description: "Optional structural performance details like capacity, stiffness,\
+        \ or seismic resistance."
       example:
-        windLoadResistance: Class A
+        windLoadResistance: 2.5–4.0 kPa
         loadBearingCapacity:
-          unit: "N"
-          loadDistribution: loadDistribution
-          maximumLoad: 2.3021358869347655
-        seismicResistance: Zone 1
+          maximumLoad: 5
+          forceUnit: kN
+          loadDistribution: point
+          testStandard: EN 1991-1-1
+        deflectionLimit: 5.962133916683182
+        seismicResistance: 0.167g < SDS ≤ 0.33g
+        safetyFactor: 1.5637376656633328
       properties:
         loadBearingCapacity:
-          $ref: '#/components/schemas/PrefabElement_structuralProperties_loadBearingCapacity'
+          $ref: "#/components/schemas/PrefabElement_structuralProperties_loadBearingCapacity"
         seismicResistance:
-          enum:
-          - Zone 1
-          - Zone 2
-          - Zone 3
-          - Zone 4
-          title: seismicResistance
-          type: string
+          $ref: "#/components/schemas/PrefabElement_structuralProperties_seismicResistance"
         windLoadResistance:
-          enum:
-          - Class A
-          - Class B
-          - Class C
-          - Class D
-          title: windLoadResistance
-          type: string
+          $ref: "#/components/schemas/PrefabElement_structuralProperties_windLoadResistance"
+        deflectionLimit:
+          $ref: "#/components/schemas/PrefabElement_structuralProperties_deflectionLimit"
+        safetyFactor:
+          description: "Applied safety factor for structural design, typically 1.0–\
+            2.0"
+          minimum: 1
+          title: safetyFactor
+          type: number
       title: PrefabElement_structuralProperties
-    PrefabElement_performance_acousticProperties:
+    PrefabElement_performance_fireResistance:
       example:
-        acousticPerformance: acousticPerformance
-        soundInsulationRating: soundInsulationRating
+        reactionToFireClassification: A1
+        fireResistanceDuration: 30min
       properties:
-        soundInsulationRating:
-          title: soundInsulationRating
-          type: string
-        acousticPerformance:
-          title: acousticPerformance
-          type: string
-      required:
-      - acousticPerformance
-      - soundInsulationRating
-      title: PrefabElement_performance_acousticProperties
-    PrefabElement_performance:
-      example:
-        thermalTransmittance: 1.4122802483006218
-        acousticProperties:
-          acousticPerformance: acousticPerformance
-          soundInsulationRating: soundInsulationRating
-        resistanceToFireClassification: A1
-      properties:
-        resistanceToFireClassification:
+        reactionToFireClassification:
+          description: Euroclass fire reaction classification (EN 13501-1)
           enum:
           - A1
           - A2
@@ -550,61 +822,128 @@ components:
           - D
           - E
           - F
-          - 1-hour
-          - 2-hour
-          - 3-hour
-          - 4-hour
-          title: resistanceToFireClassification
+          title: reactionToFireClassification
           type: string
+        fireResistanceDuration:
+          description: Fire resistance duration in minutes (EN 1363-1 / ASTM E119)
+          enum:
+          - 30min
+          - 60min
+          - 90min
+          - 120min
+          - 180min
+          - 240min
+          title: fireResistanceDuration
+          type: string
+      required:
+      - fireResistanceDuration
+      - reactionToFireClassification
+      title: PrefabElement_performance_fireResistance
+    PrefabElement_performance_acousticProperties:
+      example:
+        spectrumAdaptationTerm: 9.301444243932576
+        weightedSoundReductionIndex: 7.061401241503109
+      properties:
+        weightedSoundReductionIndex:
+          description: Rw value in dB (ISO 717-1)
+          title: weightedSoundReductionIndex
+          type: number
+        spectrumAdaptationTerm:
+          description: "Ctr value in dB (optional, ISO 717-1)"
+          title: spectrumAdaptationTerm
+          type: number
+      required:
+      - weightedSoundReductionIndex
+      title: PrefabElement_performance_acousticProperties
+    PrefabElement_performance:
+      description: "Optional performance metrics related to strength, insulation,\
+        \ or soundproofing."
+      example:
+        thermalTransmittance: 0.46042717738695305
+        fireResistance:
+          reactionToFireClassification: A1
+          fireResistanceDuration: 30min
+        acousticProperties:
+          spectrumAdaptationTerm: 9.301444243932576
+          weightedSoundReductionIndex: 7.061401241503109
+        airTightness: 0.3616076749251911
+        vaporPermeability: 0.20271230230023218
+      properties:
+        fireResistance:
+          $ref: "#/components/schemas/PrefabElement_performance_fireResistance"
         thermalTransmittance:
+          description: "Thermal transmittance (U-value) in W/m²K, typically between\
+            \ 0 and 2"
           maximum: 2
           minimum: 0
           title: thermalTransmittance
           type: number
         acousticProperties:
-          $ref: '#/components/schemas/PrefabElement_performance_acousticProperties'
+          $ref: "#/components/schemas/PrefabElement_performance_acousticProperties"
+        airTightness:
+          description: "Air permeability (e.g., n50 value in 1/h or q50 in m³/h·m²\
+            ) - lower values indicate better airtightness"
+          minimum: 0
+          title: airTightness
+          type: number
+        vaporPermeability:
+          description: Vapor permeability in µ or Sd value in meters (ISO 12572) -
+            measures resistance to water vapor diffusion
+          minimum: 0
+          title: vaporPermeability
+          type: number
       required:
-      - resistanceToFireClassification
+      - airTightness
+      - fireResistance
       - thermalTransmittance
+      - vaporPermeability
       title: PrefabElement_performance
     PrefabElement_sustainability:
+      description: Environmental and sustainability performance such as EPDs or recyclability.
       example:
         countryOfManufacturing: countryOfManufacturing
-        recyclability: 0%
-        classification: A+
-        energyEfficiency: R-1
-        VOCEmissions: None
+        recyclability: 41.45608029883936
+        classification: A
+        energyEfficiency: LEED Gold
+        VOCEmissions: Low (<0.3 mg/m³)
       properties:
         countryOfManufacturing:
+          description: Country where the element is manufactured
           title: countryOfManufacturing
           type: string
         classification:
+          description: "Simplified sustainability score, where A+ indicates highest\
+            \ performance. Define based on EPD or lifecycle impact benchmarks."
           enum:
           - A+
           - A
           - B
           - C
           - D
+          example: A
           title: classification
           type: string
         VOCEmissions:
+          description: "Volatile Organic Compounds emissions level (None, Low, Medium,\
+            \ High)"
           enum:
-          - None
-          - Low
-          - Medium
-          - High
+          - None (<0.01 mg/m³)
+          - Very Low (<0.1 mg/m³)
+          - Low (<0.3 mg/m³)
+          - Moderate (0.3–1.0 mg/m³)
+          - High (>1.0 mg/m³)
+          example: Low (<0.3 mg/m³)
           title: VOCEmissions
           type: string
         recyclability:
-          enum:
-          - 0%
-          - 25%
-          - 50%
-          - 75%
-          - 100%
+          description: "Percentage of the element that is recyclable, from 0 to 100%"
+          maximum: 100
+          minimum: 0
           title: recyclability
-          type: string
+          type: number
         energyEfficiency:
+          description: "Energy performance classification, combining insulation tiers\
+            \ and certifications (LEED, BREEAM, etc.)."
           enum:
           - R-1
           - R-2
@@ -614,12 +953,81 @@ components:
           - LEED Silver
           - LEED Gold
           - LEED Platinum
+          - BREEAM Good
+          - BREEAM Very Good
+          - BREEAM Excellent
+          - BREEAM Outstanding
+          - Passive House
+          - DGNB Gold
+          example: LEED Gold
           title: energyEfficiency
           type: string
       required:
       - classification
       - countryOfManufacturing
+      - energyEfficiency
       title: PrefabElement_sustainability
+    PrefabElement_reuseAndCircularity:
+      description: Optional data describing how reusable or refurbishable the product
+        is.
+      example:
+        circularityCertification: C2C_gold
+        reusePotential: recyclable
+        refurbishmentScope: partial
+        disassemblyRating: "3"
+      properties:
+        disassemblyRating:
+          description: "Ease of disassembly rated from 1 (not possible) to 5 (tool-free),\
+            \ based on ISO 20887:2020."
+          enum:
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+          example: "3"
+          title: disassemblyRating
+          type: string
+        reusePotential:
+          description: "End-of-life potential of the element, such as single-use,\
+            \ recyclable, or remanufacturable."
+          enum:
+          - single-use
+          - multi-use
+          - recyclable
+          - remanufacturable
+          example: recyclable
+          title: reusePotential
+          type: string
+        refurbishmentScope:
+          description: "Extent of refurbishment: none, surface-only, partial, or full\
+            \ reuse of functional components."
+          enum:
+          - none
+          - surface-only
+          - partial
+          - full
+          example: partial
+          title: refurbishmentScope
+          type: string
+        circularityCertification:
+          description: "Circularity certification level (e.g., C2C_gold, C2C_platinum)."
+          enum:
+          - none
+          - C2C_basic
+          - C2C_bronze
+          - C2C_silver
+          - C2C_gold
+          - C2C_platinum
+          example: C2C_gold
+          title: circularityCertification
+          type: string
+      required:
+      - circularityCertification
+      - disassemblyRating
+      - refurbishmentScope
+      - reusePotential
+      title: PrefabElement_reuseAndCircularity
     PrefabElement_documentationAndCompliance_certifications:
       example:
         certificationTypes:
@@ -644,6 +1052,8 @@ components:
       - regulatoryApprovals
       title: PrefabElement_documentationAndCompliance_certifications
     PrefabElement_documentationAndCompliance:
+      description: "Optional metadata linking to certificates, spec sheets, or regulatory\
+        \ documents."
       example:
         technicalSpecifications: technicalSpecifications
         certifications:
@@ -658,58 +1068,36 @@ components:
           title: technicalSpecifications
           type: string
         certifications:
-          $ref: '#/components/schemas/PrefabElement_documentationAndCompliance_certifications'
+          $ref: "#/components/schemas/PrefabElement_documentationAndCompliance_certifications"
       required:
       - certifications
       - technicalSpecifications
       title: PrefabElement_documentationAndCompliance
-    PrefabElement_installationAndConnectivity:
-      example:
-        installationTime: installationTime
-        connectionType: Bolt-on
-        compatibility: Steel Frame
-      properties:
-        connectionType:
-          enum:
-          - Bolt-on
-          - Welded
-          - Clip-on
-          - Adhesive
-          - Mortar
-          title: connectionType
-          type: string
-        installationTime:
-          title: installationTime
-          type: string
-        compatibility:
-          enum:
-          - Steel Frame
-          - Wood Frame
-          - Concrete Structure
-          - Brickwork
-          - Modular Systems
-          - Glass Facades
-          - Composite Materials
-          title: compatibility
-          type: string
-      title: PrefabElement_installationAndConnectivity
     PrefabElement_lifecycleAndMaintenance:
+      description: Optional data describing maintenance schedules or expected lifecycle.
       example:
-        maintenanceRequirements: maintenanceRequirements
-        warranty: warranty
-        expectedLifespan: expectedLifespan
+        maintenanceRequirements: Regular cleaning and inspection.
+        warranty: 10 years warranty.
+        expectedLifespan: 50
       properties:
         expectedLifespan:
+          description: Expected lifespan of the prefab element in years.
+          example: 50
           title: expectedLifespan
-          type: string
+          type: number
         maintenanceRequirements:
+          description: Maintenance requirements of the prefab element.
+          example: Regular cleaning and inspection.
           title: maintenanceRequirements
           type: string
         warranty:
+          description: Warranty information of the prefab element.
+          example: 10 years warranty.
           title: warranty
           type: string
       title: PrefabElement_lifecycleAndMaintenance
     PrefabElement_aestheticAndCustomizationOptions:
+      description: Optional aesthetic options like finishes or material variations.
       example:
         colorOptions:
         - colorOptions
@@ -730,16 +1118,34 @@ components:
           type: string
       title: PrefabElement_aestheticAndCustomizationOptions
     PrefabElement_economicFactors:
+      description: "Optional cost estimation, lead time, and supply constraints."
       example:
-        manufacturingLeadTime: manufacturingLeadTime
-        costPerUnit: 9.301444243932576
+        manufacturingLeadTime: 21
+        currency: EUR
+        costPerUnit: 180.5
       properties:
         costPerUnit:
+          description: Estimated cost per unit of the prefab element.
+          example: 180.5
           title: costPerUnit
           type: number
-        manufacturingLeadTime:
-          title: manufacturingLeadTime
+        currency:
+          description: "Currency used for the cost estimate (e.g., EUR, USD)."
+          enum:
+          - EUR
+          - USD
+          - GBP
+          - CHF
+          - JPY
+          - CNY
+          example: EUR
+          title: currency
           type: string
+        manufacturingLeadTime:
+          description: Estimated manufacturing lead time in days.
+          example: 21
+          title: manufacturingLeadTime
+          type: number
       title: PrefabElement_economicFactors
   securitySchemes:
     apiKey:
