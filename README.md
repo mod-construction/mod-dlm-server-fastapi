@@ -22,8 +22,8 @@ You can always find the most up-to-date API documentation here: [mod-dlm API Doc
 
 The server is generated automatically using the  [OpenAPI Generator](https://openapi-generator.tech).
 
-- API version: 1.0.13
-- Build date: 2025-06-03T14:27:56.056523720Z[Etc/UTC]
+- API version: 1.1.0
+- Build date: 2025-06-04T08:15:21.458468935Z[Etc/UTC]
 - Generator version: 7.14.0-SNAPSHOT
 - Build package: org.openapitools.codegen.languages.PythonFastAPIServerCodegen
 
